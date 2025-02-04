@@ -1,0 +1,18 @@
+workflows:
+  ios:
+    name: iOS Workflow
+    description: Build iOS app
+    platform: ios
+    flutter:
+      version: "3.8.0-24.0.dev"
+    scripts:
+      - name: Install specific Flutter version
+        script: |
+          git clone https://github.com/flutter/flutter.git /tmp/flutter
+          cd /tmp/flutter
+          git checkout 3.8.0-24.0.dev  
+          export PATH="$PATH:/tmp/flutter/bin"
+      - name: Get dependencies
+        script: flutter packages get
+      - name: Build app
+        script: flutter build ios --release
