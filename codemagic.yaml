@@ -15,3 +15,10 @@ workflows:
         script: flutter packages get
       - name: Build iOS app
         script: flutter build ios --release
+      - name: Export .ipa
+        script: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace -scheme Runner archive -archivePath /tmp/Runner.xcarchive
+          xcodebuild -exportArchive -archivePath /tmp/Runner.xcarchive -exportPath /tmp/Runner.ipa -exportOptionsPlist /tmp/ExportOptions.plist
+    artifacts:
+      - /tmp/Runner.ipa
